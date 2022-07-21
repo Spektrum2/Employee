@@ -28,14 +28,14 @@ public class EmployeeController {
 
     @GetMapping("/add")
     public Employee addEmployee(@RequestParam("firstName") String name,
-                              @RequestParam("lastName") String surname) {
+                                @RequestParam("lastName") String surname) {
         Employee employee = new Employee(
                 name,
                 surname
         );
         if (employeeService.printListSize() >= 10) {
             throw new EmployeeStorageIsFullException();
-        }else if(employeeService.findEmployee(employee) != null) {
+        } else if (employeeService.findEmployee(employee) != null) {
             throw new EmployeeAlreadyAddedException();
         } else {
             employeeService.addEmployee(employee);
@@ -45,7 +45,7 @@ public class EmployeeController {
 
     @GetMapping("/remove")
     public Employee removeEmployee(@RequestParam("firstName") String name,
-                                 @RequestParam("lastName") String surname) {
+                                   @RequestParam("lastName") String surname) {
         Employee employee = new Employee(
                 name,
                 surname
