@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.java.course2.employee.model.Employee;
 import pro.sky.java.course2.employee.service.EmployeeService;
-import pro.sky.java.course2.employee.exceptions.EmployeeAlreadyAddedException;
-import pro.sky.java.course2.employee.exceptions.EmployeeNotFoundException;
-import pro.sky.java.course2.employee.exceptions.EmployeeStorageIsFullException;
 
 import java.util.List;
 
