@@ -1,4 +1,6 @@
-package pro.sky.java.course2.employee.domain;
+package pro.sky.java.course2.employee.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
