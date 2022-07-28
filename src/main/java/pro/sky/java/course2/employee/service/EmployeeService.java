@@ -6,41 +6,26 @@ import pro.sky.java.course2.employee.exceptions.EmployeeNotFoundException;
 import pro.sky.java.course2.employee.exceptions.EmployeeStorageIsFullException;
 import pro.sky.java.course2.employee.model.Employee;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeService {
     private static final int LIMIT = 10;
-    List<Employee> employees = new ArrayList<>(List.of(
-            new Employee("Марк", "Захаров"),
-            new Employee("София", "Нефедова"),
-            new Employee("Алексей", "Дементьев"),
-            new Employee("Александр", "Левин"),
-            new Employee("Майя", "Михайлова"),
-            new Employee("Майя", "Попова"),
-            new Employee("Злата", "Мещерякова"),
-            new Employee("Дмитрий", "Федоров"),
-            new Employee("Георгий", "Гаврилов"),
-            new Employee("Мадина", "Яковлева")
-    ));
+    Map<String, Employee> employees = new HashMap<>();
 
-    public List<Employee> printEmployee() {
+    public Map<String, Employee> printEmployee() {
         return employees;
-    }
-
-    public Integer printListSize() {
-        return employees.size();
     }
 
     public Employee addEmployee(String name, String surname) {
 
         Employee employee = new Employee(name, surname);
-        if (employees.contains(employee)) {
+        if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException();
         }
         if (employees.size() < LIMIT) {
-            employees.add(employee);
+            employees.put(employee.getFullName(), employee);
             return employee;
         }
         throw new EmployeeStorageIsFullException();
@@ -48,8 +33,8 @@ public class EmployeeService {
 
     public Employee removeEmployee(String name, String surname) {
         Employee employee = new Employee(name, surname);
-        if (employees.contains(employee)) {
-            employees.remove(employee);
+        if (employees.containsKey(employee.getFullName())) {
+            employees.remove(employee.getFullName());
             return employee;
         }
         throw new EmployeeNotFoundException();
@@ -57,7 +42,7 @@ public class EmployeeService {
 
     public Employee findEmployee(String name, String surname) {
         Employee employee = new Employee(name, surname);
-        if (employees.contains(employee)) {
+        if (employees.containsKey(employee.getFullName())) {
             return employee;
         }
         throw new EmployeeNotFoundException();
