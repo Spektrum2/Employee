@@ -13,7 +13,7 @@ import java.util.Map;
 @Service
 public class EmployeeService {
     private static final int LIMIT = 10;
-    Map<String, Employee> employees = new HashMap<>();
+    private final Map<String, Employee> employees = new HashMap<>();
 
     public Map<String, Employee> printEmployee() {
         return employees;
@@ -22,14 +22,15 @@ public class EmployeeService {
     public Employee addEmployee(String name, String surname, Integer dept, Integer pay) {
 
         Employee employee = new Employee(name, surname, dept, pay);
+        String key = getKey(name, surname);
         if (dept < 0 || dept > 5) {
             throw new DepartmentMoreLessException();
         }
-        if (employees.containsKey(employee.getFullName())) {
+        if (employees.containsKey(key)) {
             throw new EmployeeAlreadyAddedException();
         }
         if (employees.size() < LIMIT) {
-            employees.put(employee.getFullName(), employee);
+            employees.put(key, employee);
             return employee;
         }
 
@@ -37,18 +38,22 @@ public class EmployeeService {
     }
 
     public Employee removeEmployee(String name, String surname) {
-        String fio = name + " " + surname;
-        if (employees.containsKey(fio)) {
-            return employees.remove(fio);
+        String key = getKey(name, surname);
+        if (employees.containsKey(key)) {
+            return employees.remove(key);
         }
         throw new EmployeeNotFoundException();
     }
 
-    public Employee findEmployee(String name, String surname, Integer dept, Integer pay) {
-        Employee employee = new Employee(name, surname, dept, pay);
-        if (employees.containsKey(employee.getFullName())) {
-            return employee;
+    public Employee findEmployee(String name, String surname) {
+        String key = getKey(name, surname);
+        if (!employees.containsKey(key)) {
+            throw new EmployeeNotFoundException();
         }
-        throw new EmployeeNotFoundException();
+        return employees.get(key);
+    }
+
+    private static String getKey(String name, String surname) {
+        return name + " " + surname;
     }
 }

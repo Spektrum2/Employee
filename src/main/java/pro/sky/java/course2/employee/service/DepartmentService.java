@@ -16,24 +16,24 @@ public class DepartmentService {
     }
 
     public List<Employee> printDepartmentEmployee(Integer department) {
-        return employeeService.employees.values().stream()
+        return employeeService.printEmployee().values().stream()
                 .filter(e -> e.getDepartment() == department).collect(Collectors.toList());
     }
 
     public Optional<Employee> getMinSalaryEmployee(Integer department) {
-        return employeeService.employees.values().stream()
+        return employeeService.printEmployee().values().stream()
                 .filter(e -> e.getDepartment() == department)
                 .min(Comparator.comparingInt(e -> (int) e.getSalary()));
     }
 
     public Optional<Employee> getMaxSalaryEmployee(Integer department) {
-        return employeeService.employees.values().stream()
+        return employeeService.printEmployee().values().stream()
                 .filter(e -> e.getDepartment() == department)
                 .max(Comparator.comparingInt(e -> (int) e.getSalary()));
     }
 
     public Map<Integer, String> printAllDepartmentEmployee() {
-        return employeeService.employees.values().stream()
+        return employeeService.printEmployee().values().stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment,
                         Collectors.mapping(Employee::getFullName,
                                 Collectors.joining(", ", "{", "}"))));
