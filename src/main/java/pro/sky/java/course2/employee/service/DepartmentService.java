@@ -15,6 +15,13 @@ public class DepartmentService {
         this.employeeService = employeeService;
     }
 
+    public Map<Integer, String> printAllDepartmentEmployee() {
+        return employeeService.printEmployee().values().stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.mapping(Employee::getFullName,
+                                Collectors.joining(", ", "{", "}"))));
+    }
+
     public Map<Integer, String> printDepartmentEmployee(Integer department) {
         return employeeService.printEmployee().values().stream()
                 .filter(e -> e.getDepartment() == department).collect(Collectors.groupingBy(Employee::getDepartment,
@@ -32,12 +39,5 @@ public class DepartmentService {
         return employeeService.printEmployee().values().stream()
                 .filter(e -> e.getDepartment() == department)
                 .max(Comparator.comparingInt(e -> (int) e.getSalary()));
-    }
-
-    public Map<Integer, String> printAllDepartmentEmployee() {
-        return employeeService.printEmployee().values().stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment,
-                        Collectors.mapping(Employee::getFullName,
-                                Collectors.joining(", ", "{", "}"))));
     }
 }
