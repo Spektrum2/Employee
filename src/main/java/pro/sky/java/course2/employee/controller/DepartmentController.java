@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping("/departments")
 public class DepartmentController {
@@ -21,8 +22,11 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping()
-    public List<Employee> printDepartmentEmployee(@RequestParam("departmentId") Integer department) {
+    @GetMapping("all")
+    public Map<Integer, String> printDepartmentEmployee(@RequestParam(name = "departmentId", required = false) Integer department) {
+        if (department == null) {
+            return departmentService.printAllDepartmentEmployee();
+        }
         return departmentService.printDepartmentEmployee(department);
     }
 
@@ -37,10 +41,4 @@ public class DepartmentController {
         return Optional.ofNullable(departmentService.getMaxSalaryEmployee(department)
                 .orElseThrow(DepartmentNotFoundException::new));
     }
-
-    @GetMapping("/all")
-    public Map<Integer, String> printAllDepartmentEmployee() {
-        return departmentService.printAllDepartmentEmployee();
-    }
-
 }

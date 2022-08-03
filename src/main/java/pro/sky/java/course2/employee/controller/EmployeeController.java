@@ -41,7 +41,7 @@ public class EmployeeController {
     @GetMapping("/find")
     public Employee findEmployee(@RequestParam("firstName") String name,
                                  @RequestParam("lastName") String surname
-                                 ) {
+    ) {
         return employeeService.findEmployee(name, surname);
     }
 }

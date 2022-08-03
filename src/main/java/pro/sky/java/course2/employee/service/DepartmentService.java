@@ -15,9 +15,11 @@ public class DepartmentService {
         this.employeeService = employeeService;
     }
 
-    public List<Employee> printDepartmentEmployee(Integer department) {
+    public Map<Integer, String> printDepartmentEmployee(Integer department) {
         return employeeService.printEmployee().values().stream()
-                .filter(e -> e.getDepartment() == department).collect(Collectors.toList());
+                .filter(e -> e.getDepartment() == department).collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.mapping(Employee::getFullName,
+                                Collectors.joining(", ", "{", "}"))));
     }
 
     public Optional<Employee> getMinSalaryEmployee(Integer department) {
