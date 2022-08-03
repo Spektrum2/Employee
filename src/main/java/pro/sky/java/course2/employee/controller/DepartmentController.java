@@ -21,7 +21,7 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping("all")
+    @GetMapping("/all")
     public Map<Integer, String> printDepartmentEmployee(@RequestParam(name = "departmentId", required = false) Integer department) {
         if (department == null) {
             return departmentService.printAllDepartmentEmployee();
