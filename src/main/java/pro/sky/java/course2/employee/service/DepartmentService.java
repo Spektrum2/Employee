@@ -2,7 +2,6 @@ package pro.sky.java.course2.employee.service;
 
 import org.springframework.stereotype.Service;
 
-import pro.sky.java.course2.employee.EmployeeApplication;
 import pro.sky.java.course2.employee.exceptions.DepartmentNotFoundException;
 import pro.sky.java.course2.employee.model.Employee;
 
