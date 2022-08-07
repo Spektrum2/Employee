@@ -9,8 +9,6 @@ import pro.sky.java.course2.employee.service.DepartmentService;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
 
 @RestController
 @RequestMapping("/departments")
