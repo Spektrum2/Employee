@@ -8,6 +8,7 @@ import pro.sky.java.course2.employee.exceptions.DepartmentNotFoundException;
 import pro.sky.java.course2.employee.model.Employee;
 import pro.sky.java.course2.employee.service.DepartmentService;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -21,23 +22,25 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping("/all")
-    public Map<Integer, String> printDepartmentEmployee(@RequestParam(name = "departmentId", required = false) Integer department) {
-        if (department == null) {
-            return departmentService.printAllDepartmentEmployee();
-        }
+    @GetMapping(value = "/all")
+    public Map<Integer, List<Employee>> printAllDepartmentEmployee() {
+        return departmentService.printAllDepartmentEmployee();
+    }
+
+    @GetMapping(value = "/all", params = "departmentId")
+    public List<Employee> printDepartmentEmployee(@RequestParam(name = "departmentId", required = false) Integer department) {
         return departmentService.printDepartmentEmployee(department);
     }
 
     @GetMapping("/min-salary")
-    public Optional<Employee> getMinSalaryEmployee(@RequestParam("departmentId") Integer department) {
-        return Optional.ofNullable(departmentService.getMinSalaryEmployee(department)
-                .orElseThrow(DepartmentNotFoundException::new));
+    public Employee getMinSalaryEmployee(@RequestParam("departmentId") Integer department) {
+        return departmentService.getMinSalaryEmployee(department);
+
     }
 
     @GetMapping("/max-salary")
-    public Optional<Employee> getMaxSalaryEmployee(@RequestParam("departmentId") Integer department) {
-        return Optional.ofNullable(departmentService.getMaxSalaryEmployee(department)
-                .orElseThrow(DepartmentNotFoundException::new));
+    public Employee getMaxSalaryEmployee(@RequestParam("departmentId") Integer department) {
+        return departmentService.getMaxSalaryEmployee(department);
+
     }
 }

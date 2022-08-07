@@ -2,6 +2,8 @@ package pro.sky.java.course2.employee.service;
 
 import org.springframework.stereotype.Service;
 
+import pro.sky.java.course2.employee.EmployeeApplication;
+import pro.sky.java.course2.employee.exceptions.DepartmentNotFoundException;
 import pro.sky.java.course2.employee.model.Employee;
 
 import java.util.*;
@@ -15,30 +17,28 @@ public class DepartmentService {
         this.employeeService = employeeService;
     }
 
-    public Map<Integer, String> printAllDepartmentEmployee() {
+    public Map<Integer, List<Employee>> printAllDepartmentEmployee() {
         return employeeService.printEmployee().values().stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment,
-                        Collectors.mapping(Employee::getFullName,
-                                Collectors.joining(", ", "{", "}"))));
+                .collect(Collectors.groupingBy(Employee::getDepartment));
     }
 
-    public Map<Integer, String> printDepartmentEmployee(Integer department) {
+    public List<Employee> printDepartmentEmployee(Integer department) {
         return employeeService.printEmployee().values().stream()
                 .filter(e -> e.getDepartment() == department)
-                .collect(Collectors.groupingBy(Employee::getDepartment,
-                        Collectors.mapping(Employee::getFullName,
-                                Collectors.joining(", ", "{", "}"))));
+                .collect(Collectors.toList());
     }
 
-    public Optional<Employee> getMinSalaryEmployee(Integer department) {
+    public Employee getMinSalaryEmployee(Integer department) {
         return employeeService.printEmployee().values().stream()
                 .filter(e -> e.getDepartment() == department)
-                .min(Comparator.comparingInt(e -> (int) e.getSalary()));
+                .min(Comparator.comparingInt(e -> (int) e.getSalary()))
+                .orElseThrow(DepartmentNotFoundException::new);
     }
 
-    public Optional<Employee> getMaxSalaryEmployee(Integer department) {
+    public Employee getMaxSalaryEmployee(Integer department) {
         return employeeService.printEmployee().values().stream()
                 .filter(e -> e.getDepartment() == department)
-                .max(Comparator.comparingInt(e -> (int) e.getSalary()));
+                .max(Comparator.comparingInt(e -> (int) e.getSalary()))
+                .orElseThrow(DepartmentNotFoundException::new);
     }
 }
