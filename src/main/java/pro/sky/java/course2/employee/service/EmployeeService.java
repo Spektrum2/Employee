@@ -21,9 +21,7 @@ public class EmployeeService {
 
         Employee employee = new Employee(StringUtils.capitalize(name), StringUtils.capitalize(surname), dept, pay);
         String key = getKey(name, surname);
-        if (!StringUtils.isAlpha(name) || !StringUtils.isAlpha(surname)) {
-            throw new EmployeeInvalidSymbolException();
-        }
+        checkSymbols(name,  surname);
         if (dept < 0 || dept > 5) {
             throw new DepartmentMoreLessException();
         }
@@ -40,9 +38,7 @@ public class EmployeeService {
 
     public Employee removeEmployee(String name, String surname) {
         String key = getKey(StringUtils.capitalize(name), StringUtils.capitalize(surname));
-        if (!StringUtils.isAlpha(name) || !StringUtils.isAlpha(surname)) {
-            throw new EmployeeInvalidSymbolException();
-        }
+        checkSymbols(name,  surname);
         if (employees.containsKey(key)) {
             return employees.remove(key);
         }
@@ -51,9 +47,7 @@ public class EmployeeService {
 
     public Employee findEmployee(String name, String surname) {
         String key = getKey(StringUtils.capitalize(name), StringUtils.capitalize(surname));
-        if (!StringUtils.isAlpha(name) || !StringUtils.isAlpha(surname)) {
-            throw new EmployeeInvalidSymbolException();
-        }
+        checkSymbols(name,  surname);
         if (!employees.containsKey(key)) {
             throw new EmployeeNotFoundException();
         }
@@ -62,5 +56,11 @@ public class EmployeeService {
 
     private static String getKey(String name, String surname) {
         return name + " " + surname;
+    }
+
+    private static void checkSymbols(String name, String surname) {
+        if (!StringUtils.isAlpha(name) || !StringUtils.isAlpha(surname)) {
+            throw new EmployeeInvalidSymbolException();
+        }
     }
 }
