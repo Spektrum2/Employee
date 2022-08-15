@@ -37,7 +37,7 @@ public class EmployeeService {
     }
 
     public Employee removeEmployee(String name, String surname) {
-        String key = getKey(StringUtils.capitalize(name), StringUtils.capitalize(surname));
+        String key = getKey(name, surname);
         checkSymbols(name,  surname);
         if (employees.containsKey(key)) {
             return employees.remove(key);
@@ -46,7 +46,7 @@ public class EmployeeService {
     }
 
     public Employee findEmployee(String name, String surname) {
-        String key = getKey(StringUtils.capitalize(name), StringUtils.capitalize(surname));
+        String key = getKey(name, surname);
         checkSymbols(name,  surname);
         if (!employees.containsKey(key)) {
             throw new EmployeeNotFoundException();
@@ -55,7 +55,7 @@ public class EmployeeService {
     }
 
     private static String getKey(String name, String surname) {
-        return name + " " + surname;
+        return StringUtils.capitalize(name) + " " + StringUtils.capitalize(surname);
     }
 
     private static void checkSymbols(String name, String surname) {
