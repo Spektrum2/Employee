@@ -22,7 +22,7 @@ public class EmployeeService {
         Employee employee = new Employee(StringUtils.capitalize(name), StringUtils.capitalize(surname), dept, pay);
         String key = getKey(name, surname);
         if (!StringUtils.isAlpha(name) || !StringUtils.isAlpha(surname)) {
-            throw new EmployeeInvalidSymbol();
+            throw new EmployeeInvalidSymbolException();
         }
         if (dept < 0 || dept > 5) {
             throw new DepartmentMoreLessException();
@@ -41,7 +41,7 @@ public class EmployeeService {
     public Employee removeEmployee(String name, String surname) {
         String key = getKey(StringUtils.capitalize(name), StringUtils.capitalize(surname));
         if (!StringUtils.isAlpha(name) || !StringUtils.isAlpha(surname)) {
-            throw new EmployeeInvalidSymbol();
+            throw new EmployeeInvalidSymbolException();
         }
         if (employees.containsKey(key)) {
             return employees.remove(key);
@@ -52,7 +52,7 @@ public class EmployeeService {
     public Employee findEmployee(String name, String surname) {
         String key = getKey(StringUtils.capitalize(name), StringUtils.capitalize(surname));
         if (!StringUtils.isAlpha(name) || !StringUtils.isAlpha(surname)) {
-            throw new EmployeeInvalidSymbol();
+            throw new EmployeeInvalidSymbolException();
         }
         if (!employees.containsKey(key)) {
             throw new EmployeeNotFoundException();
