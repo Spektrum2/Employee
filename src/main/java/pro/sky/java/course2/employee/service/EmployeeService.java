@@ -1,6 +1,5 @@
 package pro.sky.java.course2.employee.service;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.java.course2.employee.exceptions.*;
 import pro.sky.java.course2.employee.model.Employee;
@@ -10,6 +9,12 @@ import java.util.Map;
 
 @Service
 public class EmployeeService {
+    private final ValidatorService validatorService;
+
+    public EmployeeService(ValidatorService validatorService) {
+        this.validatorService = validatorService;
+    }
+
     private static final int LIMIT = 10;
     private final Map<String, Employee> employees = new HashMap<>();
 
@@ -18,10 +23,8 @@ public class EmployeeService {
     }
 
     public Employee addEmployee(String name, String surname, Integer dept, Integer pay) {
-
-        Employee employee = new Employee(StringUtils.capitalize(name), StringUtils.capitalize(surname), dept, pay);
-        String key = getKey(name, surname);
-        checkSymbols(name,  surname);
+        Employee employee = validatorService.validatorEmployee(name, surname, dept, pay);
+        String key = getKey(employee.getFirstName(), employee.getLastName());
         if (dept < 0 || dept > 5) {
             throw new DepartmentMoreLessException();
         }
@@ -38,7 +41,6 @@ public class EmployeeService {
 
     public Employee removeEmployee(String name, String surname) {
         String key = getKey(name, surname);
-        checkSymbols(name,  surname);
         if (employees.containsKey(key)) {
             return employees.remove(key);
         }
@@ -47,7 +49,6 @@ public class EmployeeService {
 
     public Employee findEmployee(String name, String surname) {
         String key = getKey(name, surname);
-        checkSymbols(name,  surname);
         if (!employees.containsKey(key)) {
             throw new EmployeeNotFoundException();
         }
@@ -55,12 +56,6 @@ public class EmployeeService {
     }
 
     private static String getKey(String name, String surname) {
-        return StringUtils.capitalize(name) + " " + StringUtils.capitalize(surname);
-    }
-
-    private static void checkSymbols(String name, String surname) {
-        if (!StringUtils.isAlpha(name) || !StringUtils.isAlpha(surname)) {
-            throw new EmployeeInvalidSymbolException();
-        }
+        return name + " " + surname;
     }
 }
