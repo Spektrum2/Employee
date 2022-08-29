@@ -41,6 +41,8 @@ class DepartmentServiceTest {
         employees1.put(employee2.getFullName(), employee2);
         employees1.put(employee3.getFullName(), employee3);
 
+        when(employeeService.printEmployee()).thenReturn(employees1);
+
         Employee employee4 = new Employee("Алексей", "Дементьев", 4, 30_000);
         Employee employee5 = new Employee("Александр", "Левин", 4, 20_000);
         Employee employee6 = new Employee("Майя", "Михайлова", 5, 70_000);
@@ -52,8 +54,6 @@ class DepartmentServiceTest {
 
     @Test
     public void shouldCallDepartmentServiceWhenPrintAllDepartmentEmployee() {
-        when(employeeService.printEmployee()).thenReturn(employees1);
-
         Map<Integer, List<Employee>> expected = out.printAllDepartmentEmployee();
 
         Map<Integer, List<Employee>> actual = employees2.values().stream()
@@ -64,8 +64,6 @@ class DepartmentServiceTest {
 
     @Test
     public void shouldCallDepartmentServiceWhenPrintDepartmentEmployee() {
-        when(employeeService.printEmployee()).thenReturn(employees1);
-
         List<Employee> expected = out.printDepartmentEmployee(DEPARTMENT_SERVICE);
 
         List<Employee> actual = employees2.values().stream()
@@ -76,8 +74,6 @@ class DepartmentServiceTest {
 
     @Test
     public void shouldCallDepartmentServiceWhenGetMinSalaryEmployee() {
-        when(employeeService.printEmployee()).thenReturn(employees1);
-
         Employee expected = out.getMinSalaryEmployee(DEPARTMENT_SERVICE);
 
         Employee actual = employees2.values().stream()
@@ -90,8 +86,6 @@ class DepartmentServiceTest {
 
     @Test
     public void shouldCallDepartmentServiceWhenGetMaxSalaryEmployee() {
-        when(employeeService.printEmployee()).thenReturn(employees1);
-
         Employee expected = out.getMaxSalaryEmployee(DEPARTMENT_SERVICE);
 
         Employee actual = employees2.values().stream()
