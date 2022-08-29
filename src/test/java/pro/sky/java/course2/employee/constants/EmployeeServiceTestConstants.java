@@ -4,9 +4,12 @@ public class EmployeeServiceTestConstants {
     public static final String NAME = "София";
     public static final String NAME2 = "Максим";
     public static final String NAME_THROW = "Алексей";
+    public static final String NAME_THROW_VALIDATOR = "Алексей1234";
     public static final String SURNAME = "Нефедова";
     public static final String SURNAME2 = "Тихомиров";
     public static final String SURNAME_THROW = "Дементьев";
+    public static final String SURNAME_THROW_VALIDATOR = "Дементьев1234";
+
     public static final int DEPARTMENT = 2;
     public static final int DEPARTMENT_SERVICE = 4;
     public static final int DEPARTMENT_THROW = 6;
