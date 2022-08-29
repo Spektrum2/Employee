@@ -73,6 +73,8 @@ public class Employee {
         return "{" +
                 "firstName = " + firstName +
                 ", lastName = " + lastName +
+                ", department = " + department +
+                ", salary = " + salary +
                 '}';
     }
 }

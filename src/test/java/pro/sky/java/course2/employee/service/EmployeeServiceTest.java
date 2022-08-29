@@ -10,8 +10,11 @@ import pro.sky.java.course2.employee.exceptions.*;
 import pro.sky.java.course2.employee.model.Employee;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.*;
 
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static pro.sky.java.course2.employee.constants.EmployeeServiceTestConstants.*;
 import static org.mockito.Mockito.*;
@@ -48,15 +51,13 @@ class EmployeeServiceTest {
 
     @Test
     public void shouldCallEmployeeServiceWhenAddEmployee() {
-        Employee employee1 = new Employee("Алексей", "Дементьев", 3, 30_000);
+        Employee expected = new Employee("Алексей", "Дементьев", 3, 30_000);
 
-        when(validatorService.validatorEmployee(any(), any(), any(), any())).thenReturn(employee1);
+       when(validatorService.validatorEmployee(any(), any(), any(), any())).thenReturn(expected);
 
-        Employee result = out.addEmployee("Алексей", "Дементьев", 3, 30_000);
+        Employee actual = out.addEmployee("Алексей", "Дементьев", 3, 30_000);
 
-        Employee employee2 = new Employee("Алексей", "Дементьев", 3, 30_000);
-
-        assertEquals(employee2, result);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -135,5 +136,4 @@ class EmployeeServiceTest {
 
         assertThrows(EmployeeStorageIsFullException.class, () -> out.addEmployee(NAME2, SURNAME2, DEPARTMENT, SALARY));
     }
-
 }
