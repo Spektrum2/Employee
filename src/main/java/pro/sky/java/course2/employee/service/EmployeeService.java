@@ -19,7 +19,7 @@ public class EmployeeService {
     private final Map<String, Employee> employees = new HashMap<>();
 
     public Map<String, Employee> printEmployee() {
-        return employees;
+        return new HashMap<>(employees);
     }
 
     public Employee addEmployee(String name, String surname, Integer dept, Integer pay) {
