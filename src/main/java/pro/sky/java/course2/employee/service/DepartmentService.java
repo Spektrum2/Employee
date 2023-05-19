@@ -16,17 +16,34 @@ public class DepartmentService {
         this.employeeService = employeeService;
     }
 
+    /**
+     * Метод возвращает всех сотрудников с разделением по отделам.
+     *
+     * @return Возвращает список всех сотрудников с разделением по отделам
+     */
     public Map<Integer, List<Employee>> printAllDepartmentEmployee() {
         return employeeService.printEmployee().values().stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment));
     }
 
+    /**
+     * Метод возвращает всех сотрудников по отделу
+     *
+     * @param department Отдел
+     * @return Возвращает всех сотрудников по отделу
+     */
     public List<Employee> printDepartmentEmployee(Integer department) {
         return employeeService.printEmployee().values().stream()
                 .filter(e -> e.getDepartment() == department)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Метод возвращает сотрудника с максимальной зарплатой на основе номера отдела
+     *
+     * @param department Отдел
+     * @return Возвращает сотрудника с максимальной зарплатой
+     */
     public Employee getMinSalaryEmployee(Integer department) {
         return employeeService.printEmployee().values().stream()
                 .filter(e -> e.getDepartment() == department)
@@ -34,6 +51,12 @@ public class DepartmentService {
                 .orElseThrow(DepartmentNotFoundException::new);
     }
 
+    /**
+     * Метод возвращает сотрудника с минимальной зарплатой на основе номера отдела
+     *
+     * @param department Отдел
+     * @return Возвращает сотрудника с минимальной зарплатой
+     */
     public Employee getMaxSalaryEmployee(Integer department) {
         return employeeService.printEmployee().values().stream()
                 .filter(e -> e.getDepartment() == department)

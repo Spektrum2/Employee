@@ -22,6 +22,15 @@ public class EmployeeService {
         return new HashMap<>(employees);
     }
 
+    /**
+     * Метод для добавления сотрудника
+     *
+     * @param name  Имя сотрудника
+     * @param surname Фамилия сотрудника
+     * @param dept Отдел сотрудника
+     * @param pay Зарплата сотрудника
+     * @return Возвращает сотрудника
+     */
     public Employee addEmployee(String name, String surname, Integer dept, Integer pay) {
         Employee employee = validatorService.validatorEmployee(name, surname, dept, pay);
         String key = getKey(employee.getFirstName(), employee.getLastName());
@@ -39,6 +48,13 @@ public class EmployeeService {
         throw new EmployeeStorageIsFullException();
     }
 
+    /**
+     * Метод для удаления сотрудника
+     *
+     * @param name Имя сотрудника
+     * @param surname Фамилия сотрудника
+     * @return Возвращает сотрудника
+     */
     public Employee removeEmployee(String name, String surname) {
         String key = getKey(name, surname);
         if (employees.containsKey(key)) {
@@ -47,6 +63,13 @@ public class EmployeeService {
         throw new EmployeeNotFoundException();
     }
 
+    /**
+     * Метод для поиска сотрудника
+     *
+     * @param name Имя сотрудника
+     * @param surname Фамилия сотрудника
+     * @return Возвращает сотрудника
+     */
     public Employee findEmployee(String name, String surname) {
         String key = getKey(name, surname);
         if (!employees.containsKey(key)) {
@@ -55,6 +78,13 @@ public class EmployeeService {
         return employees.get(key);
     }
 
+    /**
+     * Метод для объединения имени и фамилии в одну строку
+     *
+     * @param name Имя сотрудника
+     * @param surname Фамилия сотрудника
+     * @return Возвращает Имя и Фамилию
+     */
     private static String getKey(String name, String surname) {
         return name + " " + surname;
     }
