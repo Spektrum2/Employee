@@ -1,0 +1,26 @@
+ http://localhost:8080/employee/add?firstName=софия&lastName=нефедова&department=1&salary=10000
+###
+GET http://localhost:8080/employee/add?firstName=Алексей&lastName=Дементьев&department=1&salary=20000
+###
+GET http://localhost:8080/employee/add?firstName=Александр&lastName=Левин&department=1&salary=30000
+###
+GET http://localhost:8080/employee/add?firstName=Майя&lastName=Михайлова&department=2&salary=40000
+###
+GET http://localhost:8080/employee/add?firstName=Злата&lastName=Мещерякова&department=2&salary=50000
+###
+GET http://localhost:8080/employee/add?firstName=Дмитрий&lastName=Федоров&department=2&salary=60000
+###
+GET http://localhost:8080/employee/
+###
+GET http://localhost:8080/departments/all
+###
+GET http://localhost:8080/departments/all?departmentId=2
+###
+GET http://localhost:8080/departments/max-salary?departmentId=2
+###
+GET http://localhost:8080/departments/min-salary?departmentId=1
+###
+GET http://localhost:8080/employee/find?firstName=софия&lastName=нефедова
+###
+GET http://localhost:8080/employee/remove?firstName=софия&lastName=Нефедова
+###
